@@ -2,6 +2,8 @@ const express = require('express');
 const app = express(); 
 const PORT = 3001;
 
+app.use(express.json());
+
 let persons =
     [
       {
@@ -50,6 +52,26 @@ let persons =
         persons = persons.filter(person => person.id !== id)
         res.status(204).end()
     })
+
+    const generateId = () => {
+      const maxId = persons.length > 0
+      ? Math.max(...persons.map(n => n.id))
+      : 0
+      return maxId + 1
+    }
+
+    app.post('/api/persons', (req, res) => {
+        const body = req.body
+
+        let person = { id: generateId(),
+        name: body.name,
+        number: body.number
+        }
+
+        persons = persons.concat(person)
+        res.json(person)
+
+      })
 
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`)
