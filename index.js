@@ -63,6 +63,22 @@ let persons =
     app.post('/api/persons', (req, res) => {
         const body = req.body
 
+        if (!body.name) {
+            return res.status(400).json({
+                error: 'name missing'
+            })
+          }
+        if (!body.number) {
+            return res.status(400).json({
+                error: 'number missing'
+            })
+          }
+        if (persons.some(person => person.name === body.name)) {
+            return res.status(409).json({
+                error: 'name must be unique'
+            })
+          }
+
         let person = { id: generateId(),
         name: body.name,
         number: body.number
@@ -70,8 +86,7 @@ let persons =
 
         persons = persons.concat(person)
         res.json(person)
-
-      })
+    })
 
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`)
