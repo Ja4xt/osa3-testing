@@ -35,6 +35,22 @@ let persons =
         res.send(`<p>Phonebook has info for ${persons.length} people</p><p>${currentDate}</p>`)
     })
 
+    app.get('/api/persons/:id', (req, res) => {
+        const id = Number(req.params.id)
+        const person = persons.find(person => person.id === id)
+        if (person) {
+            res.json(person)
+        } else {
+            res.status(404).end()
+        }
+    })
+
+    app.delete('/api/persons/:id', (req, res) => {
+        const id = Number(req.params.id)
+        persons = persons.filter(person => person.id !== id)
+        res.status(204).end()
+    })
+
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`)
     })
