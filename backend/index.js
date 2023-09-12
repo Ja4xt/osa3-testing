@@ -37,6 +37,41 @@ let persons =
       }
     ]
 
+    app.get('/', (req, res) => {
+      response.send('<h1>Hello World!</h1>')
+    })
+
+    app.get('api/notes', (req, res) => {
+      response.jsonh(notes)
+    })
+
+    app.get('/api/notes/:id', (req, res) => {
+      const id = Number(req.params.id)
+      const note = notes.find(note => note.id === id)
+      if (note) {
+        res.json(note)
+      } else {
+        res.status(404).end()
+      }
+    })
+
+    app.post('/api/notes', (req, res) => {
+      const body = req.body
+      if (!body.content) {
+        return res.status(400).json({
+          error: 'content missing'
+        })
+      }
+      const note = {
+        content: body.content,
+        important: body.important || false,
+        date: new Date(),
+        id: generateId(),
+      }
+      notes = notes.concat(note)
+      res.json(note)
+    })
+
     app.get('/api/persons', (req, res) => {
         res.json(persons)
     })
