@@ -38,11 +38,11 @@ let persons =
     ]
 
     app.get('/', (req, res) => {
-      response.send('<h1>Hello World!</h1>')
+      res.send('<h1>Hello World!</h1>')
     })
 
     app.get('api/notes', (req, res) => {
-      response.jsonh(notes)
+      res.json(notes)
     })
 
     app.get('/api/notes/:id', (req, res) => {
