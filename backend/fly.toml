@@ -1,15 +1,15 @@
-# fly.toml app configuration file generated for dark-sun-496 on 2023-09-10T13:49:12+03:00
+# fly.toml app configuration file generated for juanapposa3 on 2023-09-12T15:28:35+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "dark-sun-496"
+app = "juanapposa3"
 primary_region = "ams"
 
 [build]
 
 [env]
-  PORT = "3000"
+PORT = "3001"
 
 [http_service]
   internal_port = 3000
