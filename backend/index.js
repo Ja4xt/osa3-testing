@@ -13,7 +13,7 @@ const customFormat = ':method :url :status :res[content-length] - :response-time
 
 app.use (morgan(customFormat))
 
-let persons =
+let persons = // This is ur issue, idk where i got persons instead of notes from, good job dude how about fix it ok lol n1 lets go good work lets go love u great work usefull brain.exe 404 schleep
     [
       {
         "name": "Arto Hellas",
