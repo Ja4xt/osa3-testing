@@ -1,17 +1,6 @@
-const express = require('express');
-const morgan = require('morgan');
 const cors = require('cors')
 
-const app = express(); 
-
-app.use(express.json());
 app.use(cors())
-
-morgan.token('body', function (req, res) { return req.method === 'POST' ? JSON.stringify(req.body) : '' })
-
-const customFormat = ':method :url :status :res[content-length] - :response-time ms :body'
-
-app.use (morgan(customFormat))
 
 let notes =
     [
@@ -61,6 +50,13 @@ let notes =
         }
       })
   
+      const generateId = () => {
+        const maxId = notes.length > 0
+        ? Math.max(...notes.map(n => n.id))
+        : 0
+        return maxId + 1
+      }
+
       app.post('/api/notes', (req, res) => {
         const body = req.body
         if (!body.content) {
