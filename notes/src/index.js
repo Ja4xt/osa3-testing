@@ -1,7 +1,84 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors')
 
-import App from './App'
-import './index.css'
+const app = express(); 
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+app.use(express.json());
+app.use(cors())
+
+morgan.token('body', function (req, res) { return req.method === 'POST' ? JSON.stringify(req.body) : '' })
+
+const customFormat = ':method :url :status :res[content-length] - :response-time ms :body'
+
+app.use (morgan(customFormat))
+
+let notes =
+    [
+      {
+        "id": 1,
+        "content": "HTML is easy",
+        "date": "2022-1-17T17:30:31.098Z",
+        "important": true
+      },
+      {
+        "id": 2,
+        "content": "Browser can execute only JavaScript",
+        "date": "2022-1-17T18:39:34.091Z",
+        "important": false
+      },
+      {
+        "id": 3,
+        "content": "GET and POST are the most important methods of HTTP protocol",
+        "date": "2022-1-17T19:20:14.298Z",
+        "important": true
+      },
+      {
+        "content": "POST is used to add data to a REST api",
+        "date": "2022-07-17T12:09:13.540Z",
+        "important": true,
+        "id": 4
+      },
+      {
+        "content": "PUT is used to update data to a REST api",
+        "date": "2022-07-17T12:17:45.171Z",
+        "important": true,
+        "id": 5
+      }
+    ]
+    
+    app.get('api/notes', (req, res) => {
+        res.json(notes)
+      })
+  
+      app.get('/api/notes/:id', (req, res) => {
+        const id = Number(req.params.id)
+        const note = notes.find(note => note.id === id)
+        if (note) {
+          res.json(note)
+        } else {
+          res.status(404).end()
+        }
+      })
+  
+      app.post('/api/notes', (req, res) => {
+        const body = req.body
+        if (!body.content) {
+          return res.status(400).json({
+            error: 'content missing'
+          })
+        }
+        const note = {
+          content: body.content,
+          important: body.important || false,
+          date: new Date(),
+          id: generateId(),
+        }
+        notes = notes.concat(note)
+        res.json(note)
+      })
+
+    const PORT = process.env.PORT || 3001
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`)
+    })
