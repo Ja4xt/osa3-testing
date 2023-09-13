@@ -1,6 +1,8 @@
 const cors = require('cors')
+const express = require('express')
 
 app.use(cors())
+const app = express()
 
 let notes =
     [
