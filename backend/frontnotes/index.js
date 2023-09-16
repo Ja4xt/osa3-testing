@@ -49,6 +49,12 @@ const notes =
           res.status(404).end()
         }
       })
+
+      app.delete('/api/notes/:id', (req, res) => {
+        const id = Number(req.params.id)
+        notes = notes.filter(note => notes.id !== id)
+        res.status(204).end()
+      })
   
       const generateId = () => {
         const maxId = notes.length > 0

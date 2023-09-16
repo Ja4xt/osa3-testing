@@ -1,17 +1,16 @@
-POST http://localhost:3001/api/persons
+POST http://localhost:3001/api/notes
 Content-Type: application/json
 
 {
-    "name": "SsS",
-    "number": "123123123",
+        "content": "So easy kappa",
 }
 
 ###
 
-GET http://localhost:3001/api/persons/
+GET http://localhost:3001/api/notes/
 
 ###
 
-DELETE http://localhost:3001/api/persons/1
+DELETE http://localhost:3001/api/notes/1
 
 ###
