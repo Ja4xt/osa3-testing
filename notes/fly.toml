@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for twilight-surf-5134 on 2023-09-16T17:03:51+03:00
+# fly.toml app configuration file generated for polished-dew-8943 on 2023-09-16T17:14:14+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "twilight-surf-5134"
+app = "polished-dew-8943"
 primary_region = "ams"
 
 [build]
